@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 //     });
 // });
 //--------------------------------------------------------------------
-//Route example make blog page
+//Route example make blog page KaoPiz
 Route::get('login', function(){
     return view("KaoPiz/Laravel/auth/login");
 })->name('login');

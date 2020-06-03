@@ -20,6 +20,7 @@ class KaoPizController extends Controller
         $list_blog=Post::paginate(4);
         return view('KaoPiz/Laravel/home', compact('list_blog'));
     }
+    //login
     public function getLogin(loginRequest $request){
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             Session::flash('success', 'Login success!');
@@ -29,6 +30,7 @@ class KaoPizController extends Controller
                 return redirect('login');
             }
     }
+    //register
     public function getRegister(registerRequest $request){
         $register=User::create([
             'username'=>$request->username,
@@ -48,9 +50,9 @@ class KaoPizController extends Controller
         Auth::logout();
         return redirect('home');
     }
-
+    //View create new post
     public function create(){
-        return view('KaoPiz/Laravel/blog/create-blog');
+        return view('KaoPiz/Laravel/blog/create-post');
     }
     public function store(PostRequest $request){
         $create=Post::create($request->all());
@@ -97,6 +99,7 @@ class KaoPizController extends Controller
             return redirect('home');
         }
     }
+    //Search
     public function search(Request $rq)
     {
         $namerq=$rq->search;

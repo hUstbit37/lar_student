@@ -21,7 +21,7 @@
         @endforeach
     </ul>
 </div>
-<p>If you do not have an account </p>
+<p>If you do not have an account! </p>
 <a href="{{route('register')}}">Sign up</a>
 
 @endsection

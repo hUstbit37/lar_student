@@ -1,4 +1,4 @@
-<h1>Create New Blog</h1>
+<h1>Create New Post</h1>
 @include('KaoPiz/Laravel/blog/session-message')
 <form action="{{ route('store') }}" method="post">
     @csrf

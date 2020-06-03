@@ -1,7 +1,7 @@
 <div class='header'>
     <div class="jumbotron text-center" style="margin-bottom:0;">
         <h1>Example Make Blog</h1>
-        <p>The busy have no time for tears</p>
+        <p>The busy have no time for tears!</p>
     </div>
 
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
