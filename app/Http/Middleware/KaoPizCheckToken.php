@@ -15,9 +15,9 @@ class KaoPizCheckToken
      */
     public function handle($request, Closure $next)
     {
-        if($request->path() !== 'login'){
+        if($request->path() !== 'login1'){
             if(!$request->token){
-                return redirect('login');;
+                return redirect('login1');;
             }
         }
         return $next($request);

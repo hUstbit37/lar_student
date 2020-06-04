@@ -16,7 +16,7 @@ class KaoPizCheckRole
     public function handle($request, Closure $next, $role)
     {
         if($role !== $request->get('role')){
-            return redirect('login');
+            return redirect('login1');
         }
         return $next($request);
     }

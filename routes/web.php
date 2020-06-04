@@ -2,18 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 
-//Route Kaopiz
+//Route Kaopiz test Middleware
 // Route::get('/', function () {
 //     return view('welcome');
 // })->middleware('web');
-// Route::get('login', function(){
-//     return view("KaoPiz/Laravel/login");
-// });
-// Route::group(['middleware'=>['web']], function(){
-//     Route::get('/', function () {
-//         return view('welcome');
-//     });
-// });
+Route::get('login1', function(){
+    return view("login1");
+});
+Route::group(['middleware'=>['check_token']], function(){
+    Route::get('/', function () {
+        return view('welcome');
+    });
+});
 //--------------------------------------------------------------------
 //Route example make blog page KaoPiz
 Route::get('login', function(){
@@ -45,9 +45,9 @@ Route::get('php/vidu1', function(){
 });
 Route::post('php/switch', 'MyController@testSwitch');
 Route::post('php/login', 'MyController@login');
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('registerQb', 'RegisterQBController@registerQb')->name('registerQb');
 Route::post('getRegisterQb', 'RegisterQBController@getRegisterQb')->name('getRegisterQb');

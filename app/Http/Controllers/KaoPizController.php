@@ -103,7 +103,7 @@ class KaoPizController extends Controller
     public function search(Request $rq)
     {
         $namerq=$rq->search;
-        $list_blog=DB::table('posts')->where('title', 'like', '%'.$namerq.'%')->orderBy('id', 'desc')->paginate(4);
+        $list_blog=Post::with('comment')->where('title', 'like', '%'.$namerq.'%')->orderBy('id', 'desc')->paginate(4);
         // dd($list_blog);
         return view('KaoPiz/Laravel/home',compact('list_blog'));
     }
