@@ -16,10 +16,18 @@ class User extends Authenticatable
      * @var array
      */
     //Khi dùng bảng mới để login, thì phải ghi đè bảng và thay đổi fillable cho chuẩn
-    protected $table ='member';
+    // protected $table ='member';
     protected $fillable = [
-        'username', 'email', 'password',
+        'name', 'email', 'password',
     ];
+    public function phone()
+    {
+        return $this->hasOne('App\Phone');
+    }
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'role_users');
+    }
 
     /**
      * The attributes that should be hidden for arrays.

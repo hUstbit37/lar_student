@@ -30,7 +30,6 @@ class RegisterRequest extends FormRequest
             'email' => 'required|unique:member'
         ];
     }
-
     public function message()
     {
         return [

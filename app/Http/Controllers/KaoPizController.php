@@ -9,14 +9,17 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\LoginRequest;
-use App\Http\Requests\registerRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Post;
 use App\User;
+use App\Role;
+use App\Phone;
 
 class KaoPizController extends Controller
 {
-    //List post
+    //Exercise past Query Builder
 
+    //List post
     public function index()
     {
         $list_blog = Post::paginate(4);
@@ -29,7 +32,7 @@ class KaoPizController extends Controller
     }
     public function getLogin(LoginRequest $request)
     {
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+        if (Auth::attempt(['name' => $request->username, 'password' => $request->password])) {
             Session::flash('success', 'Login success!');
             return redirect('home');
         } else {
@@ -45,7 +48,7 @@ class KaoPizController extends Controller
     public function getRegister(RegisterRequest $request)
     {
         $register = User::create([
-            'username' => $request->username,
+            'name' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
@@ -84,7 +87,6 @@ class KaoPizController extends Controller
     {
         // $post_update=DB::table('posts')->where('id', $id)->first();
         $post_update = Post::find($id);
-        // dd($post_update);
         return view('KaoPiz/Laravel/blog/post-update', compact('post_update'));
     }
     public function update(PostRequest $request, $id)
@@ -124,5 +126,49 @@ class KaoPizController extends Controller
         $list_blog = Post::with('comment')->where('title', 'like', '%' . $namerq . '%')->orderBy('id', 'desc')->paginate(4);
         // dd($list_blog);
         return view('KaoPiz/Laravel/home', compact('list_blog'));
+    }
+
+
+    //Exercise past Eloquen ORM
+    public function searchExercise1(Request $request)
+    {
+
+        $users = User::select('*');
+        // dd($users);
+        if ($request->id) {
+            $users->where('id', $request->id);
+        }
+        if ($request->name) {
+            $users->where('name', 'like', '%' . $request->name . '%');
+        }
+        if ($request->email) {
+            $users->where('email', 'like', '%' . $request->email . '%');
+        }
+        $result = $users->orderBy('id', 'desc')->get();
+        return view('KaoPiz/ExerciseORM/exercise_1', compact('result'));
+    }
+    public function searchExercise2(Request $request, User $users)
+    {
+        //id, phone, role_name
+        // $users = User::query();
+        if ($request->user_id) {
+            $users->find($request->user_id);
+            // dd($users->get());
+        }
+        if ($request->phone) {
+
+            $users->with(['phone' => function ($phone) use ($request) {
+                $phone->where('phone', 'like', $request->phone);
+            }]);
+            dd($users->get());
+        }
+        if ($request->role_name) {
+            $users->with(['roles' => function ($role) use ($request) {
+                $role->where('name', 'like', $request->role_name);
+            }]);
+            dd($users->get()->toArray());
+            // $a = Role::where('name', $request->role_name)->with('users')->get();
+        }
+        dd($users->get()->toArray());
     }
 }
